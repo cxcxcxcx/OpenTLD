@@ -64,8 +64,8 @@ end
 if isunix
     disp('Unix');
     
-    include = ' -I/usr/local/include/opencv/ -I/usr/local/include/';
-    libpath = '/usr/local/lib/';
+    include = ' -I/usr/include/opencv/ -I/usr/include/';
+    libpath = '/usr/lib/';
     
     files = dir([libpath 'libopencv*.so.2.2']);
     
@@ -73,6 +73,8 @@ if isunix
     for i = 1:length(files),
         lib = [lib ' ' libpath files(i).name];
     end
+    
+    lib = ['/usr/lib/libopencv_contrib.so /usr/lib/libopencv_core.so /usr/lib/libopencv_imgproc.so /usr/lib/libopencv_ml.so  /usr/lib/libopencv_video.so'];
     
     eval(['mex lk.cpp -O' include lib]);
     mex -O -c tld.cpp
